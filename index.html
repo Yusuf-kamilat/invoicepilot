@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incomio Limited — Technology Built With Purpose</title>
+<meta name="description" content="Incomio Limited builds software for businesses and consumers — B2B SaaS, AI products, agents, and infrastructure that solve real problems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mist:#F4F5F7;
+    --cloud:#FFFFFF;
+    --pine:#2B1747;
+    --ink:#1C0F30;
+    --charcoal:#2E2438;
+    --muted:#615A6E;
+    --citrus:#E2C94C;
+    --citrus-dark:#C9AF38;
+    --rinse:#9B6FD1;
+    --rinse-text:#7A4FB0;
+    --line:#E3DEE9;
+    --line-on-dark:rgba(244,245,247,0.18);
+    --mist-on-dark:rgba(244,245,247,0.74);
+
+    --font-display:'Bricolage Grotesque', system-ui, sans-serif;
+    --font-body:'Inter', system-ui, sans-serif;
+    --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+
+    --container-w:1180px;
+    --radius-sm:8px;
+    --radius-md:14px;
+    --radius-lg:22px;
+    --shadow-sm:0 2px 8px rgba(28,15,48,0.07);
+    --shadow-md:0 12px 32px rgba(28,15,48,0.10);
+    --shadow-lg:0 24px 60px rgba(28,15,48,0.16);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{ font-family:var(--font-body); color:var(--charcoal); background:var(--mist); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  img, svg{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  ul{ list-style:none; }
+  button{ font:inherit; background:none; border:none; cursor:pointer; }
+  input, select, textarea{ font:inherit; }
+  section[id]{ scroll-margin-top:88px; }
+
+  .container{ max-width:var(--container-w); margin-inline:auto; padding-inline:clamp(1.25rem,4vw,3rem); }
+  .icon{ width:18px; height:18px; flex-shrink:0; }
+  .icon--sm{ width:15px; height:15px; }
+
+  *:focus-visible{ outline:2.5px solid var(--pine); outline-offset:3px; border-radius:4px; }
+  .contact *:focus-visible, .site-footer *:focus-visible{ outline-color:var(--citrus); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ===== Type helpers ===== */
+  .eyebrow{ font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--rinse-text); margin-bottom:0.9rem; display:inline-block; }
+  .section__title{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.9rem,2.6vw + 1rem,2.75rem); letter-spacing:-0.015em; color:var(--pine); margin-bottom:0.75rem; max-width:22ch; }
+  .mark{ background-image:linear-gradient(to top, var(--citrus) 0.38em, transparent 0.38em); padding:0 0.06em; }
+
+  /* ===== Buttons ===== */
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:0.5rem; padding:0.85rem 1.6rem; border-radius:999px; font-family:var(--font-body); font-weight:600; font-size:0.95rem; text-decoration:none; border:2px solid transparent; cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, background-color .15s ease, border-color .15s ease, color .15s ease; }
+  .btn--primary{ background:var(--citrus); color:var(--pine); }
+  .btn--primary:hover{ background:var(--citrus-dark); transform:translateY(-2px); box-shadow:var(--shadow-md); }
+  .btn--ghost{ background:transparent; border-color:var(--pine); color:var(--pine); }
+  .btn--ghost:hover{ background:var(--pine); color:var(--mist); }
+  .btn--ghost-light{ background:transparent; border-color:var(--line-on-dark); color:var(--mist); }
+  .btn--ghost-light:hover{ background:var(--mist); color:var(--pine); }
+  .btn--sm{ padding:0.6rem 1.15rem; font-size:0.85rem; }
+  .btn--full{ width:100%; }
+
+  /* ===== Header ===== */
+  .site-header{ position:sticky; top:0; z-index:50; padding-block:1.1rem; background:transparent; transition:background-color .25s ease, box-shadow .25s ease, padding .25s ease; }
+  .site-header.is-scrolled{ background:rgba(244,245,247,0.92); backdrop-filter:blur(8px); box-shadow:var(--shadow-sm); padding-block:0.7rem; }
+  .site-header__inner{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+  .brand{ display:flex; flex-direction:column; line-height:1; text-decoration:none; color:var(--pine); }
+  .brand__name{ font-family:var(--font-display); font-weight:800; font-size:1.5rem; letter-spacing:-0.02em; }
+  .brand__sub{ font-family:var(--font-mono); font-size:0.62rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--rinse-text); margin-top:0.2rem; }
+  .nav-links{ display:flex; gap:2rem; }
+  .nav-links a{ text-decoration:none; color:var(--charcoal); font-weight:500; font-size:0.95rem; }
+  .nav-links a:hover{ color:var(--rinse-text); }
+  .site-header__actions{ display:flex; align-items:center; gap:0.75rem; }
+  .nav-toggle{ display:none; padding:0.45rem; color:var(--pine); }
+
+  @media (max-width:900px){
+    .nav-links{ position:fixed; inset:64px 0 0 0; background:var(--mist); flex-direction:column; padding:2.5rem 2rem; gap:1.75rem; transform:translateY(-14px); opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease; overflow-y:auto; }
+    .nav-links.is-open{ opacity:1; transform:translateY(0); pointer-events:auto; }
+    .nav-links a{ font-size:1.3rem; }
+    .nav-toggle{ display:inline-flex; }
+  }
+
+  /* ===== Hero ===== */
+  .hero{ position:relative; padding-block:clamp(3rem,8vw,6rem) clamp(3rem,7vw,5rem); background-color:var(--mist); background-image:radial-gradient(rgba(43,23,71,0.09) 1px, transparent 1px); background-size:24px 24px; }
+  .hero__inner{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:3rem; align-items:center; }
+  @media (max-width:900px){ .hero__inner{ grid-template-columns:1fr; } }
+  .hero__title{ font-family:var(--font-display); font-weight:700; font-size:clamp(2.3rem,4vw + 1rem,3.7rem); line-height:1.08; letter-spacing:-0.02em; color:var(--pine); margin-bottom:1.25rem; }
+  .hero__subtitle{ font-size:1.1rem; color:var(--charcoal); max-width:42ch; margin-bottom:2rem; line-height:1.65; }
+  .hero__actions{ display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2rem; }
+  .hero__meta{ display:flex; gap:1.5rem; flex-wrap:wrap; font-size:0.85rem; color:var(--muted); }
+  .hero__meta span{ display:inline-flex; align-items:center; gap:0.4rem; }
+  .hero__meta .icon{ color:var(--rinse-text); }
+
+  /* ===== Ticket / manifesto card ===== */
+  .ticket{ background:var(--cloud); border:1.5px dashed var(--pine); border-radius:var(--radius-md); padding:1.75rem; box-shadow:var(--shadow-lg); transform:rotate(-2deg); transition:transform .3s ease; max-width:380px; margin-inline:auto; }
+  .ticket:hover{ transform:rotate(0deg); }
+  .ticket__header{ display:flex; justify-content:space-between; align-items:baseline; font-family:var(--font-mono); font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--rinse-text); border-bottom:1px dashed var(--line); padding-bottom:0.85rem; margin-bottom:0.9rem; }
+  .ticket__list{ display:grid; gap:0.75rem; margin-bottom:1.1rem; }
+  .ticket__item{ display:flex; align-items:center; gap:0.75rem; font-size:0.92rem; color:var(--charcoal); }
+  .ticket__footer{ display:flex; flex-direction:column; gap:0.35rem; font-family:var(--font-mono); font-size:0.68rem; color:var(--muted); border-top:1px dashed var(--line); padding-top:0.85rem; }
+  #ticket-status{ font-weight:600; color:var(--muted); transition:color .3s ease; }
+  #ticket-status.is-done{ color:var(--rinse-text); }
+
+  /* ===== Checkbox (shared) ===== */
+  .checkbox{ width:22px; height:22px; min-width:22px; border-radius:6px; border:2px solid var(--pine); display:inline-flex; align-items:center; justify-content:center; background:var(--cloud); transition:background-color .3s ease, border-color .3s ease; }
+  .checkbox svg{ width:14px; height:14px; overflow:visible; }
+  .checkbox svg path{ fill:none; stroke:var(--pine); stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:26; stroke-dashoffset:26; transition:stroke-dashoffset .35s ease; }
+  .checkbox.is-checked{ background:var(--citrus); border-color:var(--citrus-dark); }
+  .checkbox.is-checked svg path{ stroke-dashoffset:0; }
+  .checkbox--lg{ width:30px; height:30px; min-width:30px; }
+  .checkbox--lg svg{ width:18px; height:18px; }
+
+  /* ===== Trust bar ===== */
+  .trust-bar{ background:var(--pine); padding-block:1.1rem; }
+  .trust-bar__inner{ display:flex; flex-wrap:wrap; justify-content:center; gap:2.25rem; }
+  .trust-bar__inner span{ display:inline-flex; align-items:center; gap:0.5rem; color:var(--mist-on-dark); font-size:0.84rem; font-weight:500; }
+  .trust-bar .icon{ color:var(--citrus); }
+
+  /* ===== Section backgrounds ===== */
+  .section{ padding-block:clamp(3.5rem,7vw,6rem); }
+  .why{ background:var(--cloud); }
+  .build{ background:var(--mist); }
+  .impact{ background:var(--cloud); }
+  .vision{ background:var(--pine); }
+  .vision .section__title{ color:var(--mist); }
+  .vision .eyebrow{ color:var(--citrus); }
+  .values{ background:var(--mist); }
+  .leadership{ background:var(--cloud); }
+  .careers{ background:var(--mist); }
+  .contact{ background:var(--pine); }
+  .contact .section__title{ color:var(--mist); }
+  .contact .eyebrow{ color:var(--citrus); }
+
+  /* ===== Why we build ===== */
+  .why__inner{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:3rem; align-items:start; }
+  @media (max-width:900px){ .why__inner{ grid-template-columns:1fr; } }
+  .why__story{ font-size:1.05rem; color:var(--charcoal); line-height:1.7; margin-top:1rem; max-width:50ch; }
+  .why__story p + p{ margin-top:1rem; }
+  .why__grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.75rem; }
+  @media (max-width:560px){ .why__grid{ grid-template-columns:1fr; } }
+  .feature .icon{ width:26px; height:26px; color:var(--rinse-text); margin-bottom:0.85rem; }
+  .feature h3{ font-family:var(--font-display); font-size:1.05rem; font-weight:700; color:var(--pine); margin-bottom:0.4rem; }
+  .feature p{ font-size:0.9rem; color:var(--muted); line-height:1.55; }
+
+  /* ===== What we build ===== */
+  .build__grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; margin-top:2.5rem; }
+  @media (max-width:1000px){ .build__grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .build__grid{ grid-template-columns:1fr; } }
+  .build-card{ background:var(--cloud); border:1px solid var(--line); border-radius:var(--radius-md); padding:1.75rem; display:flex; flex-direction:column; gap:0.6rem; transition:transform .2s ease, box-shadow .2s ease; }
+  .build-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-md); }
+  .build-card .checkbox{ margin-bottom:0.3rem; }
+  .build-card h3{ font-family:var(--font-display); font-size:1.05rem; font-weight:700; color:var(--pine); }
+
+  /* ===== Impact / industries ===== */
+  .impact__grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; margin-top:2.5rem; }
+  @media (max-width:1000px){ .impact__grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .impact__grid{ grid-template-columns:1fr; } }
+  .impact-tag{ background:var(--mist); border:1px solid var(--line); border-radius:var(--radius-md); padding:1.4rem 1.5rem; font-family:var(--font-display); font-weight:600; font-size:1.05rem; color:var(--pine); }
+  .impact__note{ margin-top:2rem; font-size:0.95rem; color:var(--muted); max-width:60ch; }
+
+  /* ===== Vision / mission ===== */
+  .vision__inner{ display:grid; grid-template-columns:1fr 1fr; gap:2.5rem; }
+  @media (max-width:800px){ .vision__inner{ grid-template-columns:1fr; } }
+  .vision-card{ padding:2rem; border:1.5px dashed var(--line-on-dark); border-radius:var(--radius-md); }
+  .vision-card .eyebrow{ margin-bottom:0.75rem; }
+  .vision-card p{ font-family:var(--font-display); font-size:1.3rem; font-weight:500; color:var(--mist); line-height:1.4; }
+
+  /* ===== Values ===== */
+  .values__grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.75rem; margin-top:2.5rem; }
+  @media (max-width:900px){ .values__grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .values__grid{ grid-template-columns:1fr; } }
+  .value-card{ background:var(--cloud); border-radius:var(--radius-md); padding:1.85rem; border:1px solid var(--line); }
+  .value-card__num{ font-family:var(--font-mono); font-size:0.72rem; color:var(--rinse-text); letter-spacing:0.1em; margin-bottom:0.9rem; display:block; }
+  .value-card h3{ font-family:var(--font-display); font-size:1.15rem; font-weight:700; color:var(--pine); margin-bottom:0.5rem; }
+  .value-card p{ font-size:0.92rem; color:var(--muted); line-height:1.6; }
+
+  /* ===== Leadership ===== */
+  .leadership__grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.75rem; margin-top:2.5rem; }
+  @media (max-width:800px){ .leadership__grid{ grid-template-columns:1fr; } }
+  .leader-card{ background:var(--mist); border-radius:var(--radius-md); padding:2rem; border:1px solid var(--line); }
+  .leader-card__avatar{ width:52px; height:52px; border-radius:50%; background:var(--pine); color:var(--citrus); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:700; font-size:1.2rem; margin-bottom:1.25rem; }
+  .leader-card h3{ font-family:var(--font-display); font-size:1.2rem; font-weight:700; color:var(--pine); margin-bottom:0.2rem; }
+  .leader-card__role{ font-family:var(--font-mono); font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--rinse-text); margin-bottom:1rem; display:block; }
+  .leader-card p{ font-size:0.92rem; color:var(--muted); line-height:1.6; }
+
+  /* ===== Careers ===== */
+  .careers__inner{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:3.5rem; }
+  @media (max-width:900px){ .careers__inner{ grid-template-columns:1fr; gap:2.5rem; } }
+  .careers__info p{ color:var(--muted); line-height:1.65; margin-bottom:1.5rem; max-width:42ch; }
+  .careers__form-wrap{ background:var(--cloud); border-radius:var(--radius-lg); padding:2.25rem; box-shadow:var(--shadow-lg); }
+
+  /* ===== Forms (shared: careers + contact) ===== */
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media (max-width:520px){ .form-row{ grid-template-columns:1fr; } }
+  .field{ margin-bottom:1.15rem; }
+  .field label{ display:block; font-size:0.82rem; font-weight:600; color:var(--pine); margin-bottom:0.4rem; }
+  .contact .field label{ color:var(--mist); }
+  .field input, .field select, .field textarea{ width:100%; padding:0.75rem 0.95rem; border-radius:8px; border:1.5px solid var(--line); color:var(--charcoal); background:var(--mist); }
+  .contact .field input, .contact .field select, .contact .field textarea{ background:var(--cloud); }
+  .field textarea{ resize:vertical; min-height:90px; }
+  .field__hint{ font-size:0.8rem; color:var(--muted); margin-top:0.35rem; }
+  .contact .field__hint{ color:var(--mist-on-dark); }
+  .form-success{ text-align:center; padding:2.5rem 1rem; }
+  .form-success .icon{ width:46px; height:46px; color:var(--rinse-text); margin:0 auto 1rem; }
+  .form-success h3{ font-family:var(--font-display); font-size:1.3rem; color:var(--pine); margin-bottom:0.5rem; }
+  .form-success p{ color:var(--muted); }
+
+  /* ===== Contact ===== */
+  .contact__inner{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:3.5rem; }
+  @media (max-width:900px){ .contact__inner{ grid-template-columns:1fr; gap:2.5rem; } }
+  .contact__info > p{ color:var(--mist-on-dark); line-height:1.65; margin-bottom:1.75rem; max-width:44ch; }
+  .contact__lede{ font-family:var(--font-display); font-size:1.25rem; font-weight:500; color:var(--mist); line-height:1.5; margin-bottom:1.75rem; max-width:38ch; }
+  .contact__details{ display:grid; gap:0.9rem; }
+  .contact__details li{ font-size:0.92rem; color:var(--mist-on-dark); display:flex; gap:0.75rem; }
+  .contact__details strong{ color:var(--mist); min-width:64px; font-family:var(--font-mono); font-size:0.66rem; text-transform:uppercase; letter-spacing:0.06em; padding-top:0.2rem; }
+  .contact__form-wrap{ background:var(--mist); border-radius:var(--radius-lg); padding:2.25rem; box-shadow:var(--shadow-lg); }
+
+  /* ===== Footer ===== */
+  .site-footer{ background:var(--ink); color:var(--mist-on-dark); padding-block:3.5rem 2rem; }
+  .site-footer__top{ display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:2.5rem; margin-bottom:2.5rem; }
+  @media (max-width:700px){ .site-footer__top{ grid-template-columns:1fr; gap:2rem; } }
+  .site-footer .brand__name{ color:var(--mist); }
+  .site-footer .brand__sub{ color:var(--rinse); }
+  .site-footer__top > div:first-child p{ margin-top:1rem; font-size:0.88rem; max-width:32ch; line-height:1.6; }
+  .footer-col h4{ font-family:var(--font-mono); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--mist); margin-bottom:1rem; }
+  .footer-col ul{ display:grid; gap:0.65rem; }
+  .footer-col a{ text-decoration:none; font-size:0.9rem; }
+  .footer-col a:hover{ color:var(--citrus); }
+  .site-footer__bottom{ border-top:1px solid var(--line-on-dark); padding-top:1.5rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; font-size:0.8rem; }
+</style>
+</head>
+<body>
+
+  <!-- Reusable icon defs -->
+  <svg style="position:absolute; width:0; height:0; overflow:hidden" aria-hidden="true" focusable="false">
+    <symbol id="icon-check-static" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6l7-3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-spark" viewBox="0 0 24 24"><path d="M12 3v6M12 15v6M3 12h6M15 12h6M6 6l4 4M14 14l4 4M18 6l-4 4M10 14l-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="icon-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15 9l-2 6-6 2 2-6z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="17" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M15.5 14c2.5 0.4 4.5 2.4 4.5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  </svg>
+
+  <header class="site-header" id="site-header">
+    <div class="container site-header__inner">
+      <a href="#top" class="brand">
+        <span class="brand__name">Incomio</span>
+        <span class="brand__sub">Limited</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#why">Why We Build</a></li>
+          <li><a href="#build">What We Build</a></li>
+          <li><a href="#impact">Impact</a></li>
+          <li><a href="#values">Values</a></li>
+          <li><a href="#leadership">Leadership</a></li>
+          <li><a href="#careers">Careers</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="site-header__actions">
+        <a href="#contact" class="btn btn--primary btn--sm">Book a call</a>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+          <svg class="icon"><use id="nav-toggle-icon" href="#icon-menu"></use></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="eyebrow">technology built with purpose</p>
+          <h1 class="hero__title">Software should make your life <span class="mark">easier, not harder</span>.</h1>
+          <p class="hero__subtitle">Incomio Limited builds software for businesses and consumers — B2B SaaS, AI products, agents, and infrastructure that solve real problems people actually have.</p>
+          <div class="hero__actions">
+            <a href="#contact" class="btn btn--primary">Book a call</a>
+            <a href="#build" class="btn btn--ghost">See what we build</a>
+          </div>
+          <div class="hero__meta">
+            <span><svg class="icon icon--sm"><use href="#icon-shield"></use></svg> Built by people, for people</span>
+            <span><svg class="icon icon--sm"><use href="#icon-spark"></use></svg> AI-powered, built to last</span>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="ticket" id="hero-ticket">
+            <div class="ticket__header">
+              <span>Why we build</span>
+              <span>Incomio</span>
+            </div>
+            <ul class="ticket__list">
+              <li class="ticket__item" data-check>
+                <span class="checkbox"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
+                Listen to real, everyday problems
+              </li>
+              <li class="ticket__item" data-check>
+                <span class="checkbox"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
+                Build with AI and modern engineering
+              </li>
+              <li class="ticket__item" data-check>
+                <span class="checkbox"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
+                Keep it intuitive, reliable, useful
+              </li>
+              <li class="ticket__item" data-check>
+                <span class="checkbox"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
+                Measure success in lives improved
+              </li>
+            </ul>
+            <div class="ticket__footer">
+              <span id="ticket-status">In progress</span>
+              <span>Every product. Every time.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+      <div class="container trust-bar__inner">
+        <span><svg class="icon icon--sm"><use href="#icon-shield"></use></svg> Secure &amp; scalable by default</span>
+        <span><svg class="icon icon--sm"><use href="#icon-spark"></use></svg> AI-native product development</span>
+        <span><svg class="icon icon--sm"><use href="#icon-compass"></use></svg> Purpose before product</span>
+      </div>
+    </div>
+
+    <!-- WHY WE BUILD -->
+    <section class="section why" id="why" aria-labelledby="why-title">
+      <div class="container why__inner">
+        <div>
+          <p class="eyebrow">why we build</p>
+          <h2 id="why-title" class="section__title">We measure success in lives improved, not products launched.</h2>
+          <div class="why__story">
+            <p>Every product starts the same way: we talk to people about what's actually slowing them down, then build something that fixes it.</p>
+            <p>If a product is confusing, we haven't finished building it. Everything we ship has to earn its place.</p>
+          </div>
+        </div>
+        <div class="why__grid">
+          <div class="feature">
+            <svg class="icon"><use href="#icon-compass"></use></svg>
+            <h3>Start with the problem</h3>
+            <p>We talk to the people who'll use it before we write a single line of code.</p>
+          </div>
+          <div class="feature">
+            <svg class="icon"><use href="#icon-spark"></use></svg>
+            <h3>Build with intelligence</h3>
+            <p>AI where it earns its keep, solid engineering everywhere else.</p>
+          </div>
+          <div class="feature">
+            <svg class="icon"><use href="#icon-shield"></use></svg>
+            <h3>Make it dependable</h3>
+            <p>Software that holds up under real use — secure, fast, and rarely down.</p>
+          </div>
+          <div class="feature">
+            <svg class="icon"><use href="#icon-people"></use></svg>
+            <h3>Keep it human</h3>
+            <p>If it needs a manual, we've done something wrong.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT WE BUILD -->
+    <section class="section build" id="build" aria-labelledby="build-title">
+      <div class="container">
+        <p class="eyebrow">what we build</p>
+        <h2 id="build-title" class="section__title">Intelligent software for businesses and consumers.</h2>
+        <div class="build__grid">
+          <div class="build-card">
+            <span class="checkbox is-checked"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
+            <h3>B2B SaaS Platforms</h3>
+          </div>
+          <div class="build-card">
+            <span class="checkbox is-checked"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
+            <h3>B2C Applications</h3>
+          </div>
+          <div class="build-card">
+            <span class="checkbox is-checked"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
+            <h3>Artificial Intelligence Products</h3>
+          </div>
+          <div class="build-card">
+            <span class="checkbox is-checked"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
+            <h3>AI Agents &amp; Automation</h3>
+          </div>
+          <div class="build-card">
+            <span class="checkbox is-checked"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
+            <h3>APIs &amp; Developer Tools</h3>
+          </div>
+          <div class="build-card">
+            <span class="checkbox is-checked"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
+            <h3>AI Models</h3>
+          </div>
+          <div class="build-card">
+            <span class="checkbox is-checked"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></span>
+            <h3>AI Infrastructure</h3>
+          </div>
+        </div>
+        <p class="impact__note">Every solution is designed to be secure, scalable, dependable, and easy to use.</p>
+      </div>
+    </section>
+
+    <!-- WHERE WE CREATE IMPACT -->
+    <section class="section impact" id="impact" aria-labelledby="impact-title">
+      <div class="container">
+        <p class="eyebrow">where we create impact</p>
+        <h2 id="impact-title" class="section__title">Industries where better technology improves everyday life.</h2>
+        <div class="impact__grid">
+          <div class="impact-tag">Health &amp; Wellness</div>
+          <div class="impact-tag">Fitness</div>
+          <div class="impact-tag">Education</div>
+          <div class="impact-tag">Beauty &amp; Self-Care</div>
+          <div class="impact-tag">Fashion</div>
+          <div class="impact-tag">Kids &amp; Family</div>
+          <div class="impact-tag">Relationships</div>
+          <div class="impact-tag">Faith</div>
+        </div>
+        <p class="impact__note">We'll keep adding industries as we find problems worth solving.</p>
+      </div>
+    </section>
+
+    <!-- VISION & MISSION -->
+    <section class="section vision" id="vision" aria-labelledby="vision-title">
+      <div class="container">
+        <p class="eyebrow">vision &amp; mission</p>
+        <h2 id="vision-title" class="section__title">What we're building toward.</h2>
+        <div class="vision__inner">
+          <div class="vision-card">
+            <span class="eyebrow">our vision</span>
+            <p>To be a company people trust to build software that actually works.</p>
+          </div>
+          <div class="vision-card">
+            <span class="eyebrow">our mission</span>
+            <p>Build software worth using, backed by AI and solid engineering, and keep getting better at it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="section values" id="values" aria-labelledby="values-title">
+      <div class="container">
+        <p class="eyebrow">our values</p>
+        <h2 id="values-title" class="section__title">The principles behind every decision.</h2>
+        <div class="values__grid">
+          <div class="value-card">
+            <span class="value-card__num">01 · TRANSPARENCY</span>
+            <h3>Transparency</h3>
+            <p>We tell customers and partners the truth, including when something's gone wrong. No spin.</p>
+          </div>
+          <div class="value-card">
+            <span class="value-card__num">02 · EXCELLENCE</span>
+            <h3>Excellence</h3>
+            <p>We'd rather ship something later and have it work than ship on time and have it break.</p>
+          </div>
+          <div class="value-card">
+            <span class="value-card__num">03 · INNOVATION</span>
+            <h3>Innovation</h3>
+            <p>We try new approaches, keep what works, and drop what doesn't.</p>
+          </div>
+          <div class="value-card">
+            <span class="value-card__num">04 · SIMPLICITY</span>
+            <h3>Simplicity</h3>
+            <p>Complex under the hood, simple to use — that's the goal every time.</p>
+          </div>
+          <div class="value-card">
+            <span class="value-card__num">05 · IMPACT</span>
+            <h3>Impact</h3>
+            <p>Downloads and revenue matter, but what matters more is whether people's lives are actually better for using what we built.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERSHIP -->
+    <section class="section leadership" id="leadership" aria-labelledby="leadership-title">
+      <div class="container">
+        <p class="eyebrow">leadership</p>
+        <h2 id="leadership-title" class="section__title">The people steering the mission.</h2>
+        <div class="leadership__grid">
+          <div class="leader-card">
+            <span class="leader-card__avatar">FA</span>
+            <h3>Favour Azubike</h3>
+            <span class="leader-card__role">Co-Founder &amp; Chief Executive Officer</span>
+            <p>Favour sets the company's direction — strategy, product, and partnerships — and keeps every team focused on building things people actually need.</p>
+          </div>
+          <div class="leader-card">
+            <span class="leader-card__avatar">BS</span>
+            <h3>Benjamin Shepherds</h3>
+            <span class="leader-card__role">Co-Founder &amp; Chief Operating Officer</span>
+            <p>Benjamin runs day-to-day operations and engineering, turning ideas into software that actually ships and holds up.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAREERS -->
+    <section class="section careers" id="careers" aria-labelledby="careers-title">
+      <div class="container careers__inner">
+        <div class="careers__info">
+          <p class="eyebrow">careers</p>
+          <h2 id="careers-title" class="section__title">Behind every great product is a team that cares.</h2>
+          <p>We're hiring designers, engineers, marketers, researchers, and operators who want to build things that matter. If that sounds like you, get in touch.</p>
+        </div>
+
+        <div class="careers__form-wrap">
+          <form id="career-form" novalidate>
+            <div class="field">
+              <label for="career-name">Full name</label>
+              <input type="text" id="career-name" name="name" required>
+            </div>
+            <div class="field">
+              <label for="career-email">Email address</label>
+              <input type="email" id="career-email" name="email" required>
+            </div>
+            <div class="field">
+              <label for="career-role">Role you're interested in</label>
+              <input type="text" id="career-role" name="role" required>
+            </div>
+            <div class="field">
+              <label for="career-about">Tell us about yourself</label>
+              <textarea id="career-about" name="about" placeholder="Share your experience, what inspires you, and why you'd like to build the future with Incomio Limited."></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full">Submit application</button>
+          </form>
+
+          <div class="form-success" id="career-success" hidden>
+            <svg class="icon"><use href="#icon-check-static"></use></svg>
+            <h3>Application received.</h3>
+            <p>Thank you for reaching out. Our team will review your application and follow up soon.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT / BOOK A CALL -->
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="container contact__inner">
+        <div class="contact__info">
+          <p class="eyebrow">get in touch</p>
+          <h2 id="contact-title" class="section__title">Book a call with our team.</h2>
+          <p class="contact__lede">Good technology doesn't build itself — it takes people who care about getting it right.</p>
+          <p>Whether you're interested in partnering with us, investing in our vision, exploring our products, or discussing how we can work together, complete the form and we'll schedule a conversation to learn about your goals and answer your questions.</p>
+        </div>
+
+        <div class="contact__form-wrap">
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="field">
+                <label for="name">Full name</label>
+                <input type="text" id="name" name="name" required>
+              </div>
+              <div class="field">
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="company">Company (optional)</label>
+                <input type="text" id="company" name="company">
+              </div>
+              <div class="field">
+                <label for="reason">Reason for the call</label>
+                <select id="reason" name="reason" required>
+                  <option value="">Select a reason</option>
+                  <option value="partnership">Partnership</option>
+                  <option value="investment">Investment</option>
+                  <option value="product">Exploring our products</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us a little about yourself, your business, or what you'd like to discuss."></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full">Book a call</button>
+          </form>
+
+          <div class="form-success" id="form-success" hidden>
+            <svg class="icon"><use href="#icon-check-static"></use></svg>
+            <h3>Request sent.</h3>
+            <p>We'll follow up shortly to schedule a time that works for you.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="site-footer__top">
+        <div>
+          <span class="brand__name" style="font-family:var(--font-display); font-weight:800; font-size:1.5rem;">Incomio</span>
+          <p>Technology built with purpose — intelligent software that improves lives, strengthens businesses, and creates lasting positive impact.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#why">Why We Build</a></li>
+            <li><a href="#build">What We Build</a></li>
+            <li><a href="#values">Values</a></li>
+            <li><a href="#leadership">Leadership</a></li>
+            <li><a href="#careers">Careers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="#contact">Book a call</a></li>
+            <li><a href="#careers">Apply for a role</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="site-footer__bottom">
+        <span>© <span id="year"></span> Incomio Limited. All rights reserved.</span>
+        <span>Technology built with purpose.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* Mobile nav toggle */
+    var navToggle = document.getElementById('nav-toggle');
+    var navLinks = document.getElementById('nav-links');
+    var navToggleIcon = document.getElementById('nav-toggle-icon');
+
+    function closeNav() {
+      navLinks.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggleIcon.setAttribute('href', '#icon-menu');
+    }
+
+    navToggle.addEventListener('click', function () {
+      var isOpen = navLinks.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', String(isOpen));
+      navToggleIcon.setAttribute('href', isOpen ? '#icon-close' : '#icon-menu');
+    });
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', closeNav);
+    });
+
+    /* Sticky header shadow */
+    var header = document.getElementById('site-header');
+    window.addEventListener('scroll', function () {
+      header.classList.toggle('is-scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    /* Hero ticket tick sequence */
+    function tickHero() {
+      var items = document.querySelectorAll('#hero-ticket [data-check]');
+      var status = document.getElementById('ticket-status');
+      items.forEach(function (item, i) {
+        var box = item.querySelector('.checkbox');
+        var delay = reduceMotion ? 0 : 500 + i * 380;
+        setTimeout(function () { box.classList.add('is-checked'); }, delay);
+      });
+      var lastDelay = reduceMotion ? 0 : 500 + (items.length - 1) * 380 + 500;
+      setTimeout(function () {
+        status.textContent = 'Purpose confirmed';
+        status.classList.add('is-done');
+      }, lastDelay);
+    }
+    tickHero();
+
+    /* Career form (front-end only) */
+    var careerForm = document.getElementById('career-form');
+    var careerSuccess = document.getElementById('career-success');
+    careerForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      careerForm.hidden = true;
+      careerSuccess.hidden = false;
+      careerSuccess.setAttribute('tabindex', '-1');
+      careerSuccess.focus();
+    });
+
+    /* Contact form (front-end only) */
+    var form = document.getElementById('contact-form');
+    var success = document.getElementById('form-success');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      form.hidden = true;
+      success.hidden = false;
+      success.setAttribute('tabindex', '-1');
+      success.focus();
+    });
+
+    /* Footer year */
+    document.getElementById('year').textContent = new Date().getFullYear();
+  })();
+  </script>
+</body>
+</html>

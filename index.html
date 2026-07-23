@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InvoicePilot AI — AI-Powered Invoice Intelligence & Accounts Receivable Automation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Manrope:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --emerald:#0F5A4A;
+    --jade:#1D6B5C;
+    --slate:#2F5E56;
+    --sage:#6E8A7A;
+    --card:#1A3830;
+    --gold:#C89B3C;
+    --gold-text:#E0B563;
+    --bronze:#A97236;
+    --ivory:#F3EFE6;
+    --stone:#D9D3C9;
+    --mist:#B8B9B1;
+    --border:#5E7469;
+    --ink:#1A2420;
+    --maxw:1240px;
+    --shadow:0 12px 32px rgba(4,16,12,0.24);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;font-family:'Inter',sans-serif;color:var(--stone);
+    background:var(--emerald);line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Sora',sans-serif;color:var(--ivory);margin:0;font-weight:600;letter-spacing:-0.01em;}
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 40px;}
+  section{padding:112px 0;position:relative;}
+  @media (max-width:900px){ section{padding:68px 0;} .wrap{padding:0 24px;} }
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;font-family:'Manrope',sans-serif;
+    font-weight:600;font-size:12.5px;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--ivory);margin-bottom:20px;
+  }
+  .eyebrow::before{content:"";width:16px;height:1.5px;background:var(--gold);display:inline-block;}
+
+  header{
+    position:sticky;top:0;z-index:100;background:rgba(15,90,74,0.95);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(243,239,230,0.1);
+  }
+  nav{max-width:var(--maxw);margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:78px;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Sora',sans-serif;font-weight:700;font-size:18px;color:var(--ivory);}
+  .logo-mark{width:9px;height:9px;background:var(--gold);border-radius:2px;flex-shrink:0;}
+  .nav-links{display:flex;gap:32px;align-items:center;font-family:'Manrope',sans-serif;}
+  .nav-links a{font-size:13.5px;font-weight:600;color:var(--stone);transition:color .2s ease;}
+  .nav-links a:hover{color:var(--ivory);}
+  .nav-cta{display:flex;gap:12px;align-items:center;}
+  @media (max-width:980px){ .nav-links{display:none;} .nav-cta .btn-line{display:none;} }
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:14px;
+    padding:13px 26px;border-radius:12px;border:1px solid transparent;cursor:pointer;
+    white-space:nowrap;transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  }
+  .btn-gold{
+    background:linear-gradient(135deg,var(--gold) 0%, var(--bronze) 100%);
+    color:var(--ink);box-shadow:0 6px 16px rgba(200,155,60,0.22);
+  }
+  .btn-gold:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(200,155,60,0.28);}
+  .btn-line{background:transparent;color:var(--ivory);border-color:rgba(243,239,230,0.28);}
+  .btn-line:hover{border-color:var(--ivory);}
+  .btn-sm{padding:10px 18px;font-size:13px;}
+
+  /* HERO — calm executive layout */
+  .hero{
+    padding:120px 0 0;
+    background:linear-gradient(180deg, var(--emerald) 0%, var(--jade) 100%);
+  }
+  .hero-copy{max-width:720px;}
+  .hero h1{font-size:50px;line-height:1.14;}
+  @media (max-width:900px){ .hero h1{font-size:32px;} }
+  .hero h1 .accent{color:var(--gold-text);}
+  .hero p.lead{font-size:17px;color:var(--stone);margin-top:20px;max-width:540px;}
+  .hero-ctas{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+
+  /* Executive finance panel — calm, no glow, clean grid */
+  .fin-panel{
+    margin:56px auto 0;max-width:1080px;
+    background:var(--card);border:1px solid rgba(243,239,230,0.1);
+    border-radius:14px;box-shadow:var(--shadow);padding:28px;
+  }
+  .fin-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid rgba(243,239,230,0.08);}
+  .fin-title{font-family:'Manrope',sans-serif;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--mist);}
+  .fin-badge{font-size:11.5px;color:var(--gold-text);font-weight:600;}
+  .fin-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;}
+  @media (max-width:820px){ .fin-grid{grid-template-columns:1fr;} }
+  .fin-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+  .fin-kpi{border:1px solid rgba(243,239,230,0.1);border-radius:10px;padding:14px;}
+  .fin-kpi .num{font-family:'Sora',sans-serif;font-size:20px;color:var(--ivory);}
+  .fin-kpi .lbl{font-size:10.5px;color:var(--mist);margin-top:4px;text-transform:uppercase;letter-spacing:0.04em;}
+  .fin-sub{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--mist);font-weight:600;margin-bottom:12px;}
+  .aging-row{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--stone);margin-bottom:10px;}
+  .aging-row:last-child{margin-bottom:0;}
+  .aging-track{flex:1;height:6px;background:rgba(243,239,230,0.08);border-radius:4px;overflow:hidden;}
+  .aging-fill{height:100%;border-radius:4px;background:var(--gold);}
+  .aging-val{width:66px;text-align:right;font-size:11.5px;color:var(--mist);}
+  .approval-steps{display:flex;gap:8px;margin-top:4px;}
+  .approval-step{flex:1;height:6px;border-radius:4px;background:rgba(243,239,230,0.1);}
+  .approval-step.done{background:var(--gold);}
+  .approval-labels{display:flex;justify-content:space-between;font-size:10.5px;color:var(--mist);margin-top:8px;}
+
+  /* Section headings shared */
+  .sec-head{max-width:660px;margin-bottom:48px;}
+  .sec-head h2{font-size:34px;line-height:1.18;}
+  .sec-head p{font-size:15.5px;margin-top:14px;color:var(--stone);}
+
+  /* PLATFORM OVERVIEW — executive editorial */
+  .band-jade{background:var(--jade);}
+  .editorial-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;align-items:start;}
+  @media (max-width:900px){ .editorial-grid{grid-template-columns:1fr;gap:32px;} }
+  .stat-list{display:flex;flex-direction:column;}
+  .stat-row{padding:22px 0;border-top:1px solid rgba(243,239,230,0.12);}
+  .stat-row:last-child{border-bottom:1px solid rgba(243,239,230,0.12);}
+  .stat-row h4{font-family:'Inter',sans-serif;font-weight:700;font-size:15.5px;color:var(--ivory);margin-bottom:5px;}
+  .stat-row p{font-size:14px;color:var(--stone);}
+
+  /* FEATURES — premium layered cards */
+  .band-slate{background:var(--slate);}
+  .card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  @media (max-width:960px){ .card-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:600px){ .card-grid{grid-template-columns:1fr;} }
+  .feat-card{
+    background:var(--card);border:1px solid rgba(243,239,230,0.08);border-radius:12px;padding:24px;
+    transition:transform .18s ease, border-color .18s ease;
+  }
+  .feat-card:hover{transform:translateY(-3px);border-color:rgba(200,155,60,0.35);}
+  .feat-icon{width:34px;height:34px;border-radius:8px;background:rgba(200,155,60,0.12);border:1px solid rgba(200,155,60,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+  .feat-card h4{font-family:'Sora',sans-serif;font-weight:600;font-size:15.5px;color:var(--ivory);margin-bottom:8px;}
+  .feat-card p{font-size:13.5px;color:var(--stone);}
+
+  /* AI CAPABILITIES — finance infographic bars */
+  .cap-list{display:flex;flex-direction:column;}
+  .cap-row{display:grid;grid-template-columns:1fr 2fr;gap:24px;padding:22px 0;border-top:1px solid rgba(243,239,230,0.12);align-items:center;}
+  .cap-row:last-child{border-bottom:1px solid rgba(243,239,230,0.12);}
+  @media (max-width:700px){ .cap-row{grid-template-columns:1fr;gap:10px;} }
+  .cap-row h4{font-size:16px;color:var(--ivory);}
+  .cap-row p{font-size:14px;color:var(--stone);}
+  .ai-tag-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:30px;}
+  .ai-tag{
+    font-size:12px;font-weight:500;color:var(--ivory);border:1px solid var(--border);
+    padding:7px 14px;border-radius:100px;background:rgba(243,239,230,0.04);
+  }
+
+  /* WHY */
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+  @media (max-width:900px){ .why-grid{grid-template-columns:1fr;gap:30px;} }
+  .check-list{display:flex;flex-direction:column;}
+  .check-item{display:flex;gap:14px;padding:18px 0;border-top:1px solid rgba(243,239,230,0.12);}
+  .check-item:last-child{border-bottom:1px solid rgba(243,239,230,0.12);}
+  .check-icon{
+    width:22px;height:22px;border-radius:50%;background:rgba(200,155,60,0.14);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
+  }
+  .check-item h4{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--ivory);margin-bottom:4px;}
+  .check-item p{font-size:13.5px;color:var(--stone);}
+
+  /* INDUSTRIES — elegant business grid */
+  .biz-grid{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid rgba(243,239,230,0.12);border-radius:12px;overflow:hidden;}
+  @media (max-width:900px){ .biz-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .biz-grid{grid-template-columns:1fr;} }
+  .biz-cell{
+    padding:22px 18px;font-family:'Manrope',sans-serif;font-size:13.5px;font-weight:600;color:var(--ivory);
+    border-right:1px solid rgba(243,239,230,0.1);border-bottom:1px solid rgba(243,239,230,0.1);
+  }
+
+  /* INTEGRATIONS — enterprise architecture grid */
+  .integ-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  @media (max-width:900px){ .integ-grid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:560px){ .integ-grid{grid-template-columns:repeat(2,1fr);} }
+  .integ-item{
+    border:1px solid rgba(243,239,230,0.14);border-radius:10px;padding:18px 14px;text-align:center;
+    font-size:13px;font-weight:600;color:var(--ivory);background:rgba(243,239,230,0.03);
+  }
+
+  /* SECURITY — professional governance list */
+  .gov-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;}
+  @media (max-width:800px){ .gov-grid{grid-template-columns:1fr;} }
+  .gov-item{display:flex;gap:14px;padding:18px 0;border-top:1px solid rgba(243,239,230,0.12);}
+  .gov-item h4{font-family:'Inter',sans-serif;font-weight:700;font-size:15px;color:var(--ivory);margin-bottom:4px;}
+  .gov-item p{font-size:13.5px;color:var(--stone);}
+  .gov-check{width:20px;height:20px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+
+  /* ABOUT — editorial split, no illustration, calm */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+  @media (max-width:900px){ .about-grid{grid-template-columns:1fr;gap:28px;} }
+  .about-grid p{font-size:15.5px;color:var(--stone);}
+
+  /* FAQ */
+  .faq{max-width:760px;}
+  .faq-item{border-top:1px solid rgba(243,239,230,0.12);}
+  .faq-item:last-child{border-bottom:1px solid rgba(243,239,230,0.12);}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:none;cursor:pointer;
+    padding:22px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;
+    font-family:'Sora',sans-serif;font-weight:600;font-size:16px;color:var(--ivory);
+  }
+  .faq-chevron{width:18px;height:18px;flex-shrink:0;transition:transform .25s ease;color:var(--mist);}
+  .faq-item.open .faq-chevron{transform:rotate(180deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .faq-a p{padding-bottom:22px;font-size:14px;color:var(--stone);max-width:660px;}
+
+  /* FINAL CTA — calm executive card */
+  .consult-card{
+    background:var(--card);border:1px solid rgba(243,239,230,0.1);
+    border-radius:16px;padding:60px 52px;text-align:center;
+  }
+  .consult-card h2{font-size:30px;}
+  .consult-card p{color:var(--stone);margin-top:14px;font-size:15.5px;max-width:500px;margin-left:auto;margin-right:auto;}
+  .consult-card .hero-ctas{justify-content:center;}
+  @media (max-width:640px){ .consult-card{padding:42px 24px;} }
+
+  footer{background:#0C4738;border-top:1px solid rgba(243,239,230,0.1);padding:56px 0 30px;}
+  .foot-grid{display:grid;grid-template-columns:1.6fr repeat(4,1fr);gap:30px;}
+  @media (max-width:900px){ .foot-grid{grid-template-columns:repeat(2,1fr);} }
+  .foot-grid h5{font-family:'Manrope',sans-serif;font-size:11.5px;text-transform:uppercase;letter-spacing:0.08em;color:var(--mist);font-weight:700;margin-bottom:15px;}
+  .foot-grid a{display:block;font-size:13.5px;color:var(--stone);margin-bottom:10px;}
+  .foot-grid a:hover{color:var(--ivory);}
+  .foot-bottom{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;
+    margin-top:46px;padding-top:24px;border-top:1px solid rgba(243,239,230,0.1);
+    font-size:12px;color:var(--mist);
+  }
+
+  /* MODAL */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(6,20,16,0.6);backdrop-filter:blur(3px);
+    display:none;align-items:flex-start;justify-content:center;z-index:1000;padding:48px 20px;overflow-y:auto;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal{
+    background:#173E33;border:1px solid rgba(243,239,230,0.12);
+    border-radius:16px;max-width:640px;width:100%;box-shadow:0 24px 56px rgba(4,16,12,0.4);position:relative;
+    animation:modalIn .2s ease;
+  }
+  @keyframes modalIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .modal-head{display:flex;justify-content:space-between;align-items:flex-start;padding:28px 30px 0;}
+  .modal-close{
+    width:32px;height:32px;border-radius:8px;border:1px solid rgba(243,239,230,0.2);background:rgba(243,239,230,0.05);
+    cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .modal-body{padding:18px 30px 30px;}
+  .modal-body h3{font-size:22px;margin-bottom:8px;}
+  .modal-body p.sub{font-size:14px;color:var(--stone);margin-bottom:24px;}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:520px){ .form-grid{grid-template-columns:1fr;} }
+  .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+  .field.full{grid-column:1/-1;}
+  .field label{font-size:12px;font-weight:600;color:var(--ivory);}
+  .field input, .field select, .field textarea{
+    font-family:'Inter',sans-serif;font-size:14px;color:var(--ivory);
+    border:1px solid rgba(243,239,230,0.16);border-radius:8px;padding:10px 13px;
+    background:rgba(0,0,0,0.16);outline:none;transition:border-color .15s ease;
+  }
+  .field input::placeholder, .field textarea::placeholder{color:rgba(217,211,201,0.45);}
+  .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--gold);}
+  .field select option{background:#173E33;color:var(--ivory);}
+  .field textarea{resize:vertical;min-height:84px;font-family:'Inter',sans-serif;}
+  .form-submit{width:100%;justify-content:center;margin-top:4px;padding:13px;font-size:14.5px;}
+  .thanks{display:none;text-align:center;padding:10px 0 6px;}
+  .thanks.show{display:block;}
+  .thanks-icon{
+    width:50px;height:50px;border-radius:50%;background:rgba(200,155,60,0.14);border:1px solid rgba(200,155,60,0.35);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 18px;
+  }
+  .thanks h3{margin-bottom:9px;}
+  .thanks p{font-size:14px;color:var(--stone);max-width:410px;margin:0 auto 6px;}
+  .thanks .email-line{margin-top:14px;font-weight:600;color:var(--gold-text);}
+
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important;transition:none !important;} html{scroll-behavior:auto;} }
+  .reveal{opacity:0;transform:translateY(12px);transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#top" class="logo"><span class="logo-mark"></span>InvoicePilot AI</a>
+    <div class="nav-links">
+      <a href="#platform">Platform</a>
+      <a href="#capabilities">AI Capabilities</a>
+      <a href="#industries">Industries</a>
+      <a href="#security">Security</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQs</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#" class="btn btn-line btn-sm" data-open-modal="sales">Contact Sales</a>
+      <a href="#" class="btn btn-gold btn-sm" data-open-modal="demo">Request a Demo</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <div class="eyebrow">AI-Powered Invoice Intelligence</div>
+        <h1>Automate invoice processing.<br>Accelerate <span class="accent">collections.</span></h1>
+        <p class="lead">InvoicePilot AI helps finance teams automate invoice processing, monitor payment lifecycles, predict collection risk, and streamline accounts receivable with AI-powered financial intelligence.</p>
+        <div class="hero-ctas">
+          <a href="#" class="btn btn-gold" data-open-modal="demo">Request a Demo</a>
+          <a href="#" class="btn btn-line" data-open-modal="sales">Contact Sales</a>
+        </div>
+      </div>
+
+      <div class="fin-panel reveal">
+        <div class="fin-head">
+          <div class="fin-title">Accounts Receivable — Executive Overview</div>
+          <div class="fin-badge">Updated just now</div>
+        </div>
+        <div class="fin-grid">
+          <div>
+            <div class="fin-kpis">
+              <div class="fin-kpi"><div class="num">$4.82M</div><div class="lbl">Outstanding</div></div>
+              <div class="fin-kpi"><div class="num">31 days</div><div class="lbl">Avg. DSO</div></div>
+              <div class="fin-kpi"><div class="num">96.4%</div><div class="lbl">On-Time Collection</div></div>
+            </div>
+            <div class="fin-sub">Accounts Receivable Aging</div>
+            <div class="aging-row"><span style="width:80px">0–30 days</span><span class="aging-track"><span class="aging-fill" style="width:72%"></span></span><span class="aging-val">$2.1M</span></div>
+            <div class="aging-row"><span style="width:80px">31–60 days</span><span class="aging-track"><span class="aging-fill" style="width:44%"></span></span><span class="aging-val">$1.3M</span></div>
+            <div class="aging-row"><span style="width:80px">61–90 days</span><span class="aging-track"><span class="aging-fill" style="width:22%"></span></span><span class="aging-val">$0.9M</span></div>
+            <div class="aging-row"><span style="width:80px">90+ days</span><span class="aging-track"><span class="aging-fill" style="width:12%"></span></span><span class="aging-val">$0.5M</span></div>
+          </div>
+          <div>
+            <div class="fin-sub">Approval Workflow — Invoice #INV-88421</div>
+            <div class="approval-steps">
+              <div class="approval-step done"></div>
+              <div class="approval-step done"></div>
+              <div class="approval-step done"></div>
+              <div class="approval-step"></div>
+            </div>
+            <div class="approval-labels"><span>Submitted</span><span>Reviewed</span><span>Approved</span><span>Paid</span></div>
+
+            <div class="fin-sub" style="margin-top:26px;">Cash Flow Forecast — Next 30 Days</div>
+            <svg viewBox="0 0 300 70" width="100%" height="70" preserveAspectRatio="none">
+              <polyline points="0,55 30,50 60,52 90,40 120,42 150,30 180,32 210,20 240,24 270,14 300,16"
+                fill="none" stroke="#C89B3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="0,55 30,50 60,52 90,40 120,42 150,30 180,32 210,20 240,24 270,14 300,16 300,70 0,70"
+                fill="rgba(200,155,60,0.12)" stroke="none"/>
+            </svg>
+
+            <div class="fin-sub" style="margin-top:18px;">AI Payment Risk</div>
+            <div class="aging-row" style="margin-bottom:0;"><span style="width:80px">Low risk</span><span class="aging-track"><span class="aging-fill" style="width:82%"></span></span><span class="aging-val">412 invoices</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATFORM OVERVIEW — executive editorial -->
+  <section id="platform" class="band-jade">
+    <div class="wrap editorial-grid">
+      <div>
+        <div class="eyebrow">Intelligent invoice management</div>
+        <h2 style="font-size:36px;">One of finance's most time-consuming processes.</h2>
+        <p style="font-size:15.5px;color:var(--stone);margin-top:16px;">Invoice management is one of the most time-consuming financial processes across growing organizations. Manual reconciliation, delayed payments, approval bottlenecks, and fragmented financial systems often slow down business operations. InvoicePilot AI transforms invoice operations into an intelligent, automated finance workflow.</p>
+      </div>
+      <div class="stat-list">
+        <div class="stat-row">
+          <h4>AI Invoice Processing</h4>
+          <p>Automatically capture, classify, validate, and process invoices using intelligent document recognition and machine learning.</p>
+        </div>
+        <div class="stat-row">
+          <h4>Intelligent Invoice Matching</h4>
+          <p>Automatically match invoices with purchase orders, contracts, and payment records to reduce reconciliation errors.</p>
+        </div>
+        <div class="stat-row">
+          <h4>Accounts Receivable Intelligence</h4>
+          <p>Monitor outstanding invoices, customer payment behavior, and receivable performance from a centralized dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES — premium layered cards -->
+  <section class="band-slate">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Everything in one platform</div>
+        <h2>Built for the finance operations behind every invoice</h2>
+      </div>
+      <div class="card-grid">
+        <div class="feat-card">
+          <div class="feat-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#C89B3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h4>Payment Risk Prediction</h4>
+          <p>Use AI to identify invoices that are likely to become overdue and proactively manage collections.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 12h16M12 4v16" stroke="#C89B3C" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h4>Approval Workflow Automation</h4>
+          <p>Automate invoice approvals through configurable workflows designed to reduce delays and improve governance.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 18l5-8 4 4 7-10" stroke="#C89B3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h4>Cash Flow Forecasting</h4>
+          <p>Generate AI-powered cash flow projections using payment trends and historical invoice data.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="#C89B3C" stroke-width="2"/></svg></div>
+          <h4>Intelligent Financial Reporting</h4>
+          <p>Create executive-ready financial reports, aging summaries, and operational dashboards in seconds.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#C89B3C" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="#C89B3C" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h4>AI Finance Assistant</h4>
+          <p>Ask natural-language questions about invoices, balances, and receivable performance for AI-generated insights.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="#C89B3C" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h4>Automated Invoice Capture</h4>
+          <p>Digitize invoices from multiple sources and automatically extract structured financial information with AI.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="#C89B3C" stroke-width="2"/><path d="M12 8v4l3 2" stroke="#C89B3C" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h4>Collection Intelligence</h4>
+          <p>Identify overdue accounts, prioritize collection activities, and monitor payment behavior using predictive analytics.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="4" height="10" rx="1" stroke="#C89B3C" stroke-width="2"/><rect x="10" y="4" width="4" height="16" rx="1" stroke="#C89B3C" stroke-width="2"/><rect x="16" y="7" width="4" height="13" rx="1" stroke="#C89B3C" stroke-width="2"/></svg></div>
+          <h4>Executive Reporting</h4>
+          <p>AI-powered financial summaries giving leadership visibility into payment performance and receivables.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUILT FOR MODERN FINANCE ORGANIZATIONS -->
+  <section class="band-jade">
+    <div class="wrap why-grid">
+      <div>
+        <div class="eyebrow">Built for modern finance organizations</div>
+        <h2 style="font-size:32px;">Thousands of invoices across entities, or a growing finance team — either way, it's built for it.</h2>
+        <p style="font-size:15px;color:var(--stone);margin-top:16px;">Whether you're managing thousands of invoices across multiple entities or streamlining finance operations for a growing business, InvoicePilot AI provides intelligent automation designed for enterprise finance teams.</p>
+      </div>
+      <div class="ai-tag-row">
+        <span class="ai-tag">Enterprise Finance Departments</span>
+        <span class="ai-tag">Accounting Teams</span>
+        <span class="ai-tag">Shared Service Centers</span>
+        <span class="ai-tag">B2B SaaS Companies</span>
+        <span class="ai-tag">Manufacturing Companies</span>
+        <span class="ai-tag">Logistics &amp; Supply Chain Organizations</span>
+        <span class="ai-tag">Healthcare Providers</span>
+        <span class="ai-tag">Professional Services Firms</span>
+        <span class="ai-tag">Financial Institutions</span>
+        <span class="ai-tag">Retail &amp; Distribution Companies</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI CAPABILITIES — finance infographic -->
+  <section id="capabilities">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Enterprise AI</div>
+        <h2>Enterprise AI built for financial operations</h2>
+        <p>InvoicePilot AI combines multiple AI technologies to modernize enterprise invoice management.</p>
+      </div>
+      <div class="cap-list">
+        <div class="cap-row"><h4>Automated Invoice Capture</h4><p>Digitize invoices from multiple sources and automatically extract structured financial information with AI.</p></div>
+        <div class="cap-row"><h4>Intelligent Approval Management</h4><p>Accelerate invoice approvals using configurable workflows that adapt to organizational policies and approval hierarchies.</p></div>
+        <div class="cap-row"><h4>Collection Intelligence</h4><p>Identify overdue accounts, prioritize collection activities, and monitor customer payment behavior using predictive analytics.</p></div>
+        <div class="cap-row"><h4>Financial Analytics</h4><p>Transform invoice and receivable data into actionable dashboards that support informed financial decision-making.</p></div>
+        <div class="cap-row"><h4>Executive Reporting</h4><p>Generate AI-powered financial summaries that provide leadership visibility into payment performance and trends.</p></div>
+        <div class="cap-row"><h4>Workflow Automation</h4><p>Automate repetitive finance tasks to improve productivity while reducing manual errors across accounting operations.</p></div>
+      </div>
+      <div class="ai-tag-row">
+        <span class="ai-tag">Large Language Models</span>
+        <span class="ai-tag">Intelligent Document Processing</span>
+        <span class="ai-tag">Optical Character Recognition</span>
+        <span class="ai-tag">Machine Learning</span>
+        <span class="ai-tag">Natural Language Processing</span>
+        <span class="ai-tag">Predictive Analytics</span>
+        <span class="ai-tag">Retrieval-Augmented Generation</span>
+        <span class="ai-tag">Anomaly Detection</span>
+        <span class="ai-tag">Intelligent Workflow Automation</span>
+        <span class="ai-tag">Financial Forecasting Models</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="band-jade">
+    <div class="wrap why-grid">
+      <div>
+        <div class="eyebrow">Why finance teams choose us</div>
+        <h2 style="font-size:32px;">Software that turns invoice data into a financial decision.</h2>
+      </div>
+      <div class="check-list">
+        <div class="check-item">
+          <div class="check-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#E0B563" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><h4>Faster invoice processing</h4><p>Reduce manual processing through intelligent document automation.</p></div>
+        </div>
+        <div class="check-item">
+          <div class="check-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#E0B563" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><h4>Improved cash flow visibility</h4><p>Gain real-time insights into receivables, payments, and financial performance.</p></div>
+        </div>
+        <div class="check-item">
+          <div class="check-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#E0B563" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><h4>Reduced processing errors</h4><p>Improve invoice accuracy through AI-powered validation and intelligent matching.</p></div>
+        </div>
+        <div class="check-item">
+          <div class="check-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#E0B563" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div><h4>Better financial decisions</h4><p>Leverage predictive analytics to support planning and cash flow optimization.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES — elegant business grid -->
+  <section id="industries">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Industries we support</div>
+        <h2>Built for every corner of modern finance</h2>
+      </div>
+      <div class="biz-grid">
+        <div class="biz-cell">Financial Services</div>
+        <div class="biz-cell">Manufacturing</div>
+        <div class="biz-cell">Logistics &amp; Supply Chain</div>
+        <div class="biz-cell">Healthcare</div>
+        <div class="biz-cell">Professional Services</div>
+        <div class="biz-cell">Technology</div>
+        <div class="biz-cell">Retail &amp; Distribution</div>
+        <div class="biz-cell">Construction</div>
+        <div class="biz-cell">Energy</div>
+        <div class="biz-cell">Telecommunications</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTEGRATIONS — enterprise architecture grid -->
+  <section class="band-jade">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Platform integrations</div>
+        <h2>Fits into the finance systems you already use</h2>
+        <p>InvoicePilot AI integrates seamlessly with modern finance ecosystems.</p>
+      </div>
+      <div class="integ-grid">
+        <div class="integ-item">Microsoft Dynamics 365</div>
+        <div class="integ-item">Microsoft Power BI</div>
+        <div class="integ-item">Microsoft Teams</div>
+        <div class="integ-item">Microsoft Excel</div>
+        <div class="integ-item">Microsoft Azure AI Services</div>
+        <div class="integ-item">SAP ERP</div>
+        <div class="integ-item">Oracle NetSuite</div>
+        <div class="integ-item">QuickBooks</div>
+        <div class="integ-item">Xero</div>
+        <div class="integ-item">Stripe</div>
+        <div class="integ-item">REST APIs</div>
+        <div class="integ-item">Enterprise Identity Providers</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY — professional governance -->
+  <section id="security">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Security &amp; compliance</div>
+        <h2>Secure, governed, and built for financial operations</h2>
+        <p>Financial operations require secure, reliable, and compliant technology. InvoicePilot AI is designed using enterprise-grade security principles to help organizations protect sensitive financial information while supporting governance and operational resilience.</p>
+      </div>
+      <div class="gov-grid">
+        <div class="gov-item"><div class="gov-check"></div><div><h4>End-to-end encryption</h4><p>Data protected in transit and at rest.</p></div></div>
+        <div class="gov-item"><div class="gov-check"></div><div><h4>Role-based access control</h4><p>Granular permissions across your organization.</p></div></div>
+        <div class="gov-item"><div class="gov-check"></div><div><h4>Multi-factor authentication</h4><p>Verified access at every login.</p></div></div>
+        <div class="gov-item"><div class="gov-check"></div><div><h4>Audit logging</h4><p>Full visibility into platform activity.</p></div></div>
+        <div class="gov-item"><div class="gov-check"></div><div><h4>Secure cloud storage</h4><p>Enterprise-grade data infrastructure.</p></div></div>
+        <div class="gov-item"><div class="gov-check"></div><div><h4>API authentication</h4><p>Protected, authenticated integrations.</p></div></div>
+        <div class="gov-item"><div class="gov-check"></div><div><h4>Enterprise identity integration</h4><p>Seamless SSO and identity integration.</p></div></div>
+        <div class="gov-item"><div class="gov-check"></div><div><h4>Data governance controls</h4><p>Controls built for regulated financial environments.</p></div></div>
+      </div>
+      <p style="margin-top:36px;font-size:13.5px;color:var(--mist);">Architected as a cloud-native SaaS platform, InvoicePilot AI is designed to leverage Azure for GPU-backed AI inference and intelligent document processing, secure cloud storage, managed databases, identity and access management, scalable APIs, AI model hosting, financial analytics workloads, monitoring and observability, search indexing, and high-availability infrastructure.</p>
+    </div>
+  </section>
+
+  <!-- ABOUT — calm editorial split -->
+  <section id="about" class="band-jade">
+    <div class="wrap about-grid">
+      <div>
+        <div class="eyebrow">About InvoicePilot AI</div>
+        <h2 style="font-size:32px;">Building intelligent software for modern financial operations</h2>
+      </div>
+      <div>
+        <p>InvoicePilot AI is building intelligent software that helps organizations modernize financial operations through responsible artificial intelligence. We believe finance professionals should spend less time managing repetitive invoice processes and more time delivering strategic financial insights that drive business growth.</p>
+        <p style="margin-top:16px;">InvoicePilot AI is led by an underrepresented founder committed to building secure, enterprise-ready AI solutions that help organizations automate financial workflows while improving operational efficiency and financial visibility.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Frequently asked questions</div>
+      </div>
+      <div class="faq">
+        <div class="faq-item">
+          <button class="faq-q">Does InvoicePilot AI replace our accounting software?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="faq-a"><p>No. InvoicePilot AI complements existing accounting and ERP systems by adding AI-powered invoice automation, workflow intelligence, payment analytics, and financial insights.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Can InvoicePilot AI integrate with our finance systems?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="faq-a"><p>Yes. InvoicePilot AI is designed with an API-first architecture and can integrate with ERP platforms, accounting software, payment systems, document repositories, and enterprise productivity tools.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Is InvoicePilot AI suitable for growing businesses?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="faq-a"><p>Yes. The platform is designed to support organizations ranging from growing businesses to large enterprises with complex finance operations.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">How does InvoicePilot AI improve finance operations?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="faq-a"><p>InvoicePilot AI combines artificial intelligence, intelligent document processing, predictive analytics, workflow automation, and financial intelligence to streamline invoice processing, improve cash flow visibility, and support better operational decision-making.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Is our financial data secure?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="faq-a"><p>InvoicePilot AI is built using enterprise-grade security principles including encryption, authentication, role-based access controls, audit logging, governance capabilities, and secure cloud infrastructure.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section>
+    <div class="wrap">
+      <div class="consult-card">
+        <h2>Ready to modernize your finance operations?</h2>
+        <p>Empower your finance team with AI-powered invoice intelligence designed for modern enterprise financial operations.</p>
+        <div class="hero-ctas">
+          <a href="#" class="btn btn-gold" data-open-modal="demo">Request a Demo</a>
+          <a href="#" class="btn btn-line" data-open-modal="sales">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#top" class="logo"><span class="logo-mark"></span>InvoicePilot AI</a>
+        <p style="margin-top:14px;font-size:13.5px;max-width:260px;color:var(--stone);">AI-powered invoice intelligence and accounts receivable automation for modern finance teams.</p>
+      </div>
+      <div>
+        <h5>Platform</h5>
+        <a href="#platform">Overview</a>
+        <a href="#capabilities">AI Capabilities</a>
+        <a href="#security">Security</a>
+      </div>
+      <div>
+        <h5>Solutions</h5>
+        <a href="#industries">Industries</a>
+        <a href="#platform">Invoice Automation</a>
+        <a href="#platform">Cash Flow Forecasting</a>
+      </div>
+      <div>
+        <h5>Resources</h5>
+        <a href="#about">About</a>
+        <a href="#faq">FAQs</a>
+        <a href="#" data-open-modal="sales">Contact</a>
+      </div>
+      <div>
+        <h5>Get Started</h5>
+        <a href="#" data-open-modal="demo">Request a Demo</a>
+        <a href="mailto:info@invoicepilot.digital">info@invoicepilot.digital</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div>© 2026 InvoicePilot AI. All rights reserved. · Privacy Policy · Terms of Service</div>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-head">
+      <div></div>
+      <button class="modal-close" id="modal-close" aria-label="Close">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M4 4l16 16M20 4L4 20" stroke="#F3EFE6" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div id="form-view">
+        <h3 id="modal-title">See InvoicePilot AI in Action</h3>
+        <p class="sub" id="modal-sub">Complete the form below, and a member of our team will contact you to understand your finance workflows, invoice management challenges, and business objectives before scheduling a personalized product demonstration.</p>
+
+        <form id="demo-form">
+          <div class="form-grid">
+            <div class="field"><label>Full Name</label><input type="text" required></div>
+            <div class="field"><label>Business Email</label><input type="email" required></div>
+            <div class="field"><label>Company Name</label><input type="text" required></div>
+            <div class="field"><label>Job Title</label><input type="text" required></div>
+            <div class="field full">
+              <label>Organization Type</label>
+              <select required>
+                <option value="">Select an option</option>
+                <option>Enterprise Finance Department</option>
+                <option>Accounting Firm</option>
+                <option>Shared Service Center</option>
+                <option>Manufacturing Company</option>
+                <option>Technology Company</option>
+                <option>Healthcare Organization</option>
+                <option>Logistics &amp; Supply Chain Company</option>
+                <option>Professional Services Firm</option>
+                <option>Financial Institution</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label>Primary Use Case</label>
+              <textarea placeholder="e.g. AI invoice processing, accounts receivable automation, cash flow forecasting…"></textarea>
+            </div>
+            <div class="field">
+              <label>Estimated Organization Size (Optional)</label>
+              <select>
+                <option value="">Select an option</option>
+                <option>1–50 Employees</option>
+                <option>51–250 Employees</option>
+                <option>251–1,000 Employees</option>
+                <option>1,001–5,000 Employees</option>
+                <option>5,000+ Employees</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Preferred Contact Method</label>
+              <select>
+                <option>Business Email</option>
+                <option>Microsoft Teams</option>
+                <option>Phone Call</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label>Preferred Demo Date</label>
+              <input type="date">
+            </div>
+            <div class="field full">
+              <label>Additional Information (Optional)</label>
+              <textarea placeholder="Tell us about your current finance processes, invoice management challenges, or existing ERP systems."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-gold form-submit">Submit Request</button>
+        </form>
+      </div>
+
+      <div class="thanks" id="thanks-view">
+        <div class="thanks-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 12l6 6L20 6" stroke="#E0B563" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Thank You for Your Interest in InvoicePilot AI</h3>
+        <p>We've successfully received your demo request. A member of our Finance AI Solutions team will contact you within 1–2 business days to confirm your preferred demo date and schedule your personalized demonstration.</p>
+        <p class="email-line">info@invoicepilot.digital</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const overlay = document.getElementById('modal-overlay');
+  const modalTitle = document.getElementById('modal-title');
+  const modalSub = document.getElementById('modal-sub');
+  const formView = document.getElementById('form-view');
+  const thanksView = document.getElementById('thanks-view');
+  const demoForm = document.getElementById('demo-form');
+
+  function openModal(kind){
+    formView.style.display = 'block';
+    thanksView.classList.remove('show');
+    demoForm.reset();
+    if(kind === 'sales'){
+      modalTitle.textContent = 'Speak with Our Finance AI Solutions Team';
+      modalSub.textContent = "Whether you're looking to automate invoice processing, improve accounts receivable management, or accelerate payment cycles, tell us about your organization and a member of our team will follow up.";
+    } else {
+      modalTitle.textContent = 'See InvoicePilot AI in Action';
+      modalSub.textContent = "Complete the form below, and a member of our team will contact you to understand your finance workflows, invoice management challenges, and business objectives before scheduling a personalized product demonstration.";
+    }
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('[data-open-modal]').forEach(el=>{
+    el.addEventListener('click', (e)=>{
+      e.preventDefault();
+      openModal(el.getAttribute('data-open-modal'));
+    });
+  });
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
+
+  demoForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    formView.style.display = 'none';
+    thanksView.classList.add('show');
+  });
+
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', ()=>{
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(other=>{
+        if(other !== item){
+          other.classList.remove('open');
+          other.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      if(isOpen){
+        item.classList.remove('open');
+        a.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('in'); io.unobserve(entry.target); }
+    });
+  }, {threshold:0.12});
+  revealEls.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
